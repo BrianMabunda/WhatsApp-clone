@@ -17,7 +17,7 @@ const data1={
     user:true,
 }
 const apiCall =async (data)=>{
-    fetch("http://127.0.0.1:5000/sendText",{method:"Post",headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    fetch("http://192.168.43.16:5000/sendText",{method:"Post",headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
 }
 function ChatInput(props) {
     //variable for storing text
@@ -28,9 +28,11 @@ function ChatInput(props) {
    
     return (
         <View style={styles.ChatInputContainer}>
-            <TextInput multiline="true"
-                       scrollEnabled="true"
-                       allowFontScaling="true"
+            <TextInput 
+
+
+
+                       scrollEnabled={true}
                        autoFocus
                        value={chatText}
                        onChangeText={(text)=>{

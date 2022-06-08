@@ -69,7 +69,6 @@ const styles=StyleSheet.create({
     },
     statusTime:{
         fontSize :12,
-        fontStyle:"Italic",
         alignSelf:"center",
         marginLeft:60,
         color:"silver"

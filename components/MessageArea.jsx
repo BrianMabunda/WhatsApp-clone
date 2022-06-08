@@ -70,10 +70,10 @@ function MessageArea() {
         try {
             var response;
             if(request=="chat")
-                response=await fetch("http://localhost:5000/chats");
+                response=await fetch("http://192.168.43.16:5000/chats");
                 
             else
-                response=await fetch(`http://localhost:5000/contacts`);
+                response=await fetch(`http://192.168.43.16:5000/contacts`);
             const Data=await response.json();
             if(Data!=Response){
                 if(request=="chat")

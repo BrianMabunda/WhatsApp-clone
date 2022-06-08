@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
-import { Button, Image, SafeAreaView, StyleSheet, Text, View, ViewComponent } from 'react-native';
+import { Button, Image, SafeAreaView, StyleSheet, Text, View, ViewComponent, AppRegistry } from 'react-native';
 //import pic from './assets/favicon.png'
 import {Header,num} from './components/Header';
 import Message from './components/Message';
@@ -9,6 +9,10 @@ import MessageArea from './components/MessageArea';
 import { Provider } from 'react-redux';
 import store from './reducers/store';
 import StatusView from './components/StatusView';
+import StatusCreate from './components/StatusCreate';
+
+import {A} from 'expo'
+import {name as appName} from './app.json'
 function SpecialButton(name){
   let n=name;
   let x=0;
@@ -29,8 +33,9 @@ function SpecialButton(name){
 
 */
 export default function App() {
-  const [state,setState]=useState(0);
-  const [bstate,setBstate]=useState(2);
+  AppRegistry.registerComponent(appName,()=>App);
+  const [state,setState]=useState(3);
+  const [bstate,setBstate]=useState(3);
   setInterval(()=>{
     //console.log(store.getState().State)
     setState(store.getState().State);
@@ -41,14 +46,15 @@ export default function App() {
     <Provider store={store}>
 
     <View style={styles.container}>
-      {(state===0)?<Header />:(state===1)?<MessageArea />:(state===2)?<StatusView />:<View />}
+      {(state===0)?<Header />:(state===1)?<MessageArea />:(state===2)?<StatusView />:(state===3)?<StatusCreate />:<View />}
 
       {(state===0)?(bstate===0)?<Message />:<StatusArea />:<View />}
     </View>
     </Provider>
 
   );
-}
+  }
+  
 const styles = StyleSheet.create({
 
   container: {

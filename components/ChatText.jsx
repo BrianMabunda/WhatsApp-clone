@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         height:10,
         width:10,
         alignSelf:"center",
-        flexBasis:"flex-end",
+        //flexBasis:"flex-end",
         
     },
     metaData:{
