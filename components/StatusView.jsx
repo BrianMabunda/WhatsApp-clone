@@ -22,33 +22,31 @@ function StatusView() {
             width:350,
             backgroundColor:"gray",
             alignSelf:"center",
+            borderRadius:25,
         }
     });
-
-
-    
-    
-    /* useEffect(()=>{
+  //Progress bar simulation
+    useEffect(()=>{
         const progress=setInterval(() => {
-            itt+=11.7;
+            itt+=1;
             setProg(itt);
              console.log(itt)
-        }, 1000);
+        }, 10);
     setTimeout(() => {
         clearInterval(progress);
         console.log("done")
         store.dispatch({"type":"Home"})
         store.dispatch({"type":"Status"})
         itt=0;
-    }, 30000);
-},[]) */
+    }, 8000);
+},[])
     
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
                 <Image style={styles.profilePic} source={require("../assets/icon.png")}/>
-                <Text >Nkateko</Text>
-                <Text>Time of status</Text>
+                <Text  style={styles.contactName}>Nkateko</Text>
+                <Text  style={styles.statusTime}>1 minute ago</Text>
             </View>
             <View style={Styles.loadindBarContainer}>
                 <View style={Styles.loadindBar} /> 
@@ -59,15 +57,12 @@ function StatusView() {
         </View>
     );
 }
-
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"red",
+        backgroundColor:"rgb(38, 46, 25)",
         width:"100%",
         flexDirection:"column",
-
-
     },
     display:{
         height:500,
@@ -83,19 +78,28 @@ const styles=StyleSheet.create({
         height:50,
         width:50,
         alignContent:"center",
-        
-        //top:25,
         borderRadius:25,
     },
     userInfo:{
         height:50,
-        //top:-200,
-        backgroundColor:"blue",
         marginTop:10,
         flexDirection:"row",
+        justifyContent:"flex-start",
         marginBottom:10,
     },
-    
+    statusTime:{
+        fontSize :13,
+        fontStyle:"Italic",
+        alignSelf:"center",
+        marginLeft:60,
+        color:"silver",
+    },
+    contactName:{
+        fontSize :20,
+        alignSelf:"center",
+        marginHorizontal:10,
+        color:"silver",
+    },
 })
 
 export default StatusView;

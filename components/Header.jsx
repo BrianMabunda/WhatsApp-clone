@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {StyleSheet,Image,Text,View} from 'react-native'
 import store from '../reducers/store';
 
@@ -42,6 +42,7 @@ var styles = StyleSheet.create({
     position:"relative",
     flexDirection:"row",
     height:"30%",
+    width:"100%",
   },
   secondHeader:{
     height:"100%",
@@ -116,7 +117,7 @@ settings:{
   width :30,
   height:30,
 },
-UnselectedChat:{
+unselectedChat:{
   alignSelf:"flex-end",
   backgroundColor:"green",
   height:"100%",
@@ -133,10 +134,33 @@ UnselectedChat:{
 
 
 function Header() {
-  const [chat,setChat]=useState(styles.selectedChat);
-  const [status,setStatus]=useState(styles.unselectedStatus);
-  const [call,setCall]=useState(styles.unselectedCall);
+  const [header,setHeader]=useState({
+    chat:  styles.selectedChat,
+    status:styles.unselectedStatus,
+    call:  styles.unselectedCall,
+  })
   const [Num,setNum]=useState(num);
+  console.log(store.getState().bState);
+  useEffect(()=>{
+    
+    switch (store.getState().bState) {
+     case 0:
+       setHeader({
+       chat:  styles.selectedChat,
+       status:styles.unselectedStatus,
+       call:  styles.unselectedCall,
+       })
+       break;
+     case 1:
+       setHeader({
+       chat:  styles.unselectedChat,
+       status:styles.selectedStatus,
+       call:  styles.unselectedCall,
+       })
+       break;
+     
+   } 
+  },[])
     return (
         <View style={styles.container}>
       
@@ -149,11 +173,13 @@ function Header() {
         </View>
         <View style={styles.options}>
 
-        <View style={chat} onTouchStart={()=>{
+        <View style={header.chat} onTouchStart={()=>{
           //styles.chats.borderBottomColor="green";
-          setChat(styles.selectedChat)
-          setStatus(styles.unselectedStatus);
-          setCall(styles.unselectedCall);
+          setHeader({
+            chat:  styles.selectedChat,
+            status:styles.unselectedStatus,
+            call:  styles.unselectedCall,
+            })
           store.dispatch({"type":"Chats"})//Go to Status HomeSheet
           console.log(store.getState().bState)
           
@@ -162,28 +188,32 @@ function Header() {
         }}>
           <Text style={styles.headerText}>CHATS</Text>
         </View>
-        <View style={status} onTouchStart={()=>{
+        <View style={header.status} onTouchStart={()=>{
           //styles.chats.borderBottomColor="green";
-          setCall(styles.unselectedCall);
-          setChat(styles.UnselectedChat);
-          setStatus(styles.selectedStatus);
+          setHeader({
+            chat:  styles.unselectedChat,
+            status:styles.selectedStatus,
+            call:  styles.unselectedCall,
+            })
           store.dispatch({type:"Status"});//Go to Status TabSheet
           console.log(store.getState().bState);
         
       }}>
           <Text style={styles.headerText}>STATUS</Text>
         </View>
-        <View style={call} onTouchStart={()=>{
+        <View style={header.call} onTouchStart={()=>{
           //styles.chats.borderBottomColor="green";
-          setChat(styles.UnselectedChat);
-          setStatus(styles.unselectedStatus);
-          setCall(styles.selectedCall);
+          setHeader({
+            chat:  styles.unselectedChat,
+            status:styles.unselectedStatus,
+            call:  styles.selectedCall,
+            })
           setNum(6)
           num=Num;
           setNum(num);
         
       }}>
-          <Text style={styles.headerText}>CHATS</Text>
+          <Text style={styles.headerText}>CALLS</Text>
         </View>
         
         </View>

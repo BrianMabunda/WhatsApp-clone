@@ -10,12 +10,13 @@ function StatusArea() {
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:"red",
+        backgroundColor:"rgb(38, 46, 25)",
         alignSelf:"flex-end",
         width:"100%",
         position:"relative",
         height:100,
         zIndex:0,
+        
     },
 })
 
