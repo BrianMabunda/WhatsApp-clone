@@ -11,7 +11,7 @@ function superState(state=0,action){
             case "StatusView":
                 return state=2;
                 break;
-            case "Camera":
+            case "StatusCreate":
                     return state=3;
                     break;
             default:

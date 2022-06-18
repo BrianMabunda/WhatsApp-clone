@@ -2,12 +2,14 @@ import { combineReducers, createStore} from 'redux';
 import baseState from './baseState';
 import superState from './superState';
 import sentText from './sentText';
+import contacts from './contacts';
 
 
 const allReducer=combineReducers({
     State:superState,
     bState:baseState,
     sent:sentText,
+    contacts:contacts,
 
 });
 

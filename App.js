@@ -33,7 +33,7 @@ function SpecialButton(name){
 
 */
 export default function App() {
-  AppRegistry.registerComponent(appName,()=>App);
+  // AppRegistry.registerComponent(appName,()=>App);
   const [state,setState]=useState(3);
   const [bstate,setBstate]=useState(3);
   setInterval(()=>{

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View, Image} from "react-native";
+import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
 import store from "../reducers/store";
 
 function Status() {
@@ -16,6 +16,28 @@ function Status() {
         </View>
     );
 }
+function UserStatus() {
+    return (
+        <View style={styles.container}>
+            <View style={styles.userInfo}>
+                <View style={styles.picContainer} onTouchStart={()=>{
+                    store.dispatch({"type":"StatusView"});
+                }}>
+                   <Image  style={styles.StatusPic} source={require("../assets/icon.png")}/> 
+                </View>
+                <Text  style={styles.contactName}>You</Text>
+                <Text  style={styles.statusTime}>1 minute ago</Text>
+                <TouchableOpacity style={styles.add} onPress={()=>{
+                    store.dispatch({"type":"StatusCreate"});
+                }}>
+
+                    <Image  style={styles.StatusPic} source={require("../assets/plus.svg")}/> 
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+}
+
 const styles=StyleSheet.create({
     container:{
         flex:.125,
@@ -81,6 +103,14 @@ const styles=StyleSheet.create({
         marginHorizontal:10,
         color:"silver"
     },
+    add:{
+        height:30,
+        width:30,
+        borderRadius:25,
+        alignSelf:"center",
+        left:50,
+    },
+    
 })
 
-export default Status;
+export {UserStatus,Status};

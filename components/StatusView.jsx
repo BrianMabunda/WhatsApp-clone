@@ -4,15 +4,20 @@ import store from "../reducers/store";
 let itt=0;
 
 
+const data= new FormData();
+data.append("name","Image")
+
 function StatusView() {
     //max 350
     const [prog,setProg]=useState(0);
+    const [image,setImage]=useState(require("../assets/icon.png"));
+    
     //set(time,setTime);
     
     var Styles=StyleSheet.create({
         loadindBar:{
             height:10,
-            width:prog,
+            width:prog,  
             backgroundColor:"green",
             borderRadius:25,
             /* borderWidth:10,
@@ -25,22 +30,51 @@ function StatusView() {
             borderRadius:25,
         }
     });
+    const API= async()=>{
+        
+        try {
+            
+            const response=await fetch(`http://localhost:5000/getPic}`,
+            {method:"POST",
+            body:0,
+        });
+            const Data=await response.json();
+            if(Data!=Response){
+                setImage(Data.Image[Data.Image.length-1].img);
+                console.log(Data.Image);
+                itt=0;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
   //Progress bar simulation
     useEffect(()=>{
+        API();
         const progress=setInterval(() => {
             itt+=1;
             setProg(itt);
-             console.log(itt)
+            if(itt===350){
+
+                clearInterval(progress);
+                 store.dispatch({"type":"Home"})
+                 store.dispatch({"type":"Status"})
+                
+            }
+             //console.log(itt)
         }, 10);
-    setTimeout(() => {
+        if(itt===350){
+            //clearInterval(progress);
+            itt=0;
+
+        }
+    /* setTimeout(() => {
         clearInterval(progress);
         console.log("done")
-        store.dispatch({"type":"Home"})
-        store.dispatch({"type":"Status"})
         itt=0;
-    }, 8000);
-},[])
-    
+    }, 8000);*/
+},[]) 
+ 
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
@@ -52,7 +86,7 @@ function StatusView() {
                 <View style={Styles.loadindBar} /> 
             </View>
             <View style={styles.display}> 
-                <Image style={styles.displayImage} source={require("../assets/icon.png")}/>
+                <Image style={styles.displayImage} source={image} resizeMode={"cover"}/>
             </View>
         </View>
     );
@@ -65,13 +99,13 @@ const styles=StyleSheet.create({
         flexDirection:"column",
     },
     display:{
-        height:500,
+        flex:1,
         width:350,
         alignSelf:"center",
-        top:70,
+        top:35,
     },
     displayImage:{
-        height:"100%",
+        height:"90%",
         width:"100%",
     },
     profilePic:{
@@ -79,6 +113,7 @@ const styles=StyleSheet.create({
         width:50,
         alignContent:"center",
         borderRadius:25,
+        marginLeft:15,
     },
     userInfo:{
         height:50,
