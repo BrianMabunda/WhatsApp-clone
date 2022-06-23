@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View } from "react-native";
 import {Status,UserStatus} from './Status';
 import store from "../reducers/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 function StatusArea() {
+    const [statusData,setStatusData]=useState(null);
     console.log("Hello");
     console.log(store.getState().contacts)
     const API= async()=>{
@@ -16,30 +17,34 @@ function StatusArea() {
                 contacts.names.push(element.name)
                 contacts.keys.push(element.key)
             });
-            //console.log(store.getState().contacts.Contacts);
-            const body=new FormData();
-            body.append("names",JSON.stringify(contacts.names));
-            body.append("keys",JSON.stringify(contacts.keys));
-            const response=await fetch(`http://localhost:5000/get/${contacts.names}/${contacts.keys}`);
+            let ip;
+            // ip="192.168.43.16"
+            ip="localhost"
+            const response=await fetch(`http://${ip}:5000/get/${contacts.names}/${contacts.keys}`);
             const Data=await response.json();
             if(Data!=Response){
-                //setImage(Data.Image[Data.Image.length-1].img);
-                // console.log(Data.Image[3]);
-                Data.Image.forEach(element => {
-                    console.log(element);
-                });
-                //itt=0;
+                store.dispatch({"type":"setStatuses","payload":Data});
+                  setStatusData(store.getState().status.Image);
             }
         } catch (error) {
             console.log(error);
         }
     }
     useEffect(()=>{
-        API();
+        
+        if(store.getState().status==0)
+            API();
+        else{
+            setStatusData(store.getState().status.Image);
+            console.log(store.getState().status)
+        }
+
     },[])
     return (
         <View style={styles.container}>
-            <UserStatus />
+            {console.log(statusData)}
+            {(statusData!==null)?(<UserStatus data={statusData[0]} />):<View />}
+            {(statusData!==null)?(<Status data={statusData[1]} />):<View />}
         </View>
     );
 }

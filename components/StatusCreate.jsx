@@ -3,6 +3,9 @@ import { View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
 import {  Camera, CameraType} from "expo-camera";
 import store from '../reducers/store';
 import * as ImagePicker from 'expo-image-picker';
+let ip;
+ip="192.168.43.16"
+// ip="localhost"
 function StatusCreate(props) {
     const [hasPermission,setHasPermission]=useState(null);
     const [image,setImage]=useState(null);
@@ -36,7 +39,7 @@ function StatusCreate(props) {
             const form=new FormData();
             form.append('image',data);
             form.append('key',999);
-            fetch("http://localhost:5000/uploadPic",{method:"Post",body:form})
+            fetch(`http://${ip}:5000/uploadPic`,{method:"Post",body:form})
      }
     useEffect(()=>{
 
@@ -73,7 +76,7 @@ function StatusCreate(props) {
                     store.dispatch({"type":"Home"});
                     store.dispatch({"type":"Status"})
                 }} >
-                    <Image  style={styles.icon} source={require("../assets/xmark.svg")} resizeMode={"contain"}/>
+                    <Image  style={styles.icon} source={require("../assets/cross-circle-free-icon-font.png")} resizeMode={"contain"}/>
                 </TouchableOpacity>
             </Camera>:<View style={styles.container}>
                 <View style={styles.imgContainer}>
@@ -87,7 +90,7 @@ function StatusCreate(props) {
                 (async()=>setImgUri(image));
                 
             }}>
-                <Image  style={styles.icon} source={require("../assets/plus.svg")}/>
+                <Image  style={styles.icon} source={require("../assets/thumbtack.png")}/>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.picSelect} onPress={()=>{
                     
@@ -110,7 +113,7 @@ function StatusCreate(props) {
                       console.log(imguri);
                     
                 } }>
-                    <Image  style={styles.icon} source={require("../assets/greater-than.svg")} resizeMode={"contain"}/>
+                    <Image  style={styles.icon} source={require("../assets/angle-circle-right-free-icon-font.png")} resizeMode={"contain"}/>
                 </TouchableOpacity>
                 </View>
                 </View>

@@ -5,7 +5,9 @@ import { StyleSheet, View, Text, Image, Button, ScrollView} from 'react-native';
 import store from '../reducers/store';
 import ChatText from './ChatText';
 import ChatInput from './ChatInput';
-
+let ip;
+// ip="192.168.43.16"
+ip="localhost"
 function MessageHeader(props) {
     let data="";
     if(props.data!="Waiting"){
@@ -128,6 +130,7 @@ function MessageArea() {
 const styles=StyleSheet.create({
     MessaAreaContainer:{
         flex:1,
+        width:"100%",
         position:"relative",
         backgroundColor:"rgb(38, 46, 25)",
         
@@ -165,7 +168,7 @@ const styles=StyleSheet.create({
         top:5,
     },
     contactInfo:{
-        top:20,
+        top:404,
         left:-20,
 }
     ,
@@ -178,8 +181,8 @@ const styles=StyleSheet.create({
     headerContainer:{
         flexDirection:"row",
         backgroundColor:"green",
-        width:350,
-        height:80,
+        width:"100%",
+        height:100,
         position:"relative",
         top:-10,
         
@@ -189,7 +192,7 @@ const styles=StyleSheet.create({
         height:50,
         width:50,
         justifyContent:"flex-start",
-        top:25,
+        top:45,
         borderRadius:25,
     },
     extrasContainer:{

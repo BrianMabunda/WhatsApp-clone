@@ -56,9 +56,9 @@ var styles = StyleSheet.create({
     height:"50%",
     width:"100%",
     backgroundColor:"green",
-    justifyContent:"space-around",
     flexDirection:"row",
-    alignItems:"center",
+    justifyContent:"flex-start",
+    alignItems:"flex-start",
   },
   options:{
     position:'relative',
@@ -107,7 +107,10 @@ var styles = StyleSheet.create({
   },
   gameName:{
     fontSize:30,
-     marginRight:"40%",
+    marginLeft:10,
+     alignSelf:"flex-end",
+     justifyContent:"flex-start",
+
   },
 search:{
   width :30,
@@ -167,8 +170,6 @@ function Header() {
       <View style={styles.secondHeader}> 
         <View style={styles.firstHeader}>
           <Text style={styles.gameName}>LetsChat</Text>
-          <Image style={styles.search} source={require('../assets/search.svg')} />
-          <Image style={styles.search} source={require('../assets/gear.svg')} />
     
         </View>
         <View style={styles.options}>

@@ -1,29 +1,54 @@
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
 import store from "../reducers/store";
 
-function Status() {
+function Status(props) {
+    const [statusImage,setStatusImage]=useState("");
+    const [name,setName]=useState("")
+    const data=props.data;
+    
+    useEffect(()=>{
+        if(data!=null){
+            setStatusImage(data.images[data.images.length-1]);
+            
+            setName(data.name)
+        }
+
+    },[])
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
                 <View style={styles.picContainer} onTouchStart={()=>{
+                    store.dispatch({"type":"setContact","payload":data.images});
                     store.dispatch({"type":"StatusView"});
                 }}>
-                    <Image  style={styles.StatusPic} source={require("../assets/icon.png")}/>
+                    <Image  style={styles.StatusPic} source={{uri:statusImage}}  />
                 </View>
-                <Text  style={styles.contactName}>Nkateko</Text>
+                <Text  style={styles.contactName}>{name}</Text>
                 <Text  style={styles.statusTime}>1 minute ago</Text>
             </View>
         </View>
     );
 }
-function UserStatus() {
+function UserStatus(props) {
+    const [statusImage,setStatusImage]=useState(" ");
+    const data=props.data;
+    
+    useEffect(()=>{
+        if(data!=null){
+            setStatusImage(data.images[data.images.length-1]);
+            store.dispatch({"type":"setContact","payload":data.images});
+            console.log("got here")
+        }
+
+    },[])
     return (
         <View style={styles.container}>
             <View style={styles.userInfo}>
                 <View style={styles.picContainer} onTouchStart={()=>{
                     store.dispatch({"type":"StatusView"});
                 }}>
-                   <Image  style={styles.StatusPic} source={require("../assets/icon.png")}/> 
+                   <Image  style={styles.StatusPic} source={{uri:statusImage}}/> 
                 </View>
                 <Text  style={styles.contactName}>You</Text>
                 <Text  style={styles.statusTime}>1 minute ago</Text>

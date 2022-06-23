@@ -10,7 +10,7 @@ data.append("name","Image")
 function StatusView() {
     //max 350
     const [prog,setProg]=useState(0);
-    const [image,setImage]=useState(require("../assets/icon.png"));
+    const [image,setImage]=useState(" ");
     
     //set(time,setTime);
     
@@ -50,13 +50,20 @@ function StatusView() {
     }
   //Progress bar simulation
     useEffect(()=>{
-        API();
+        if(store.getState().status==0)
+            API();
+        else{
+            setImage(store.getState().contact[store.getState().contact.length-1]);
+            console.log(store.getState().contact)
+        }
+
         const progress=setInterval(() => {
-            itt+=1;
+            itt+=2.5;
             setProg(itt);
             if(itt===350){
 
                 clearInterval(progress);
+                store.dispatch({"type":"clearContact"})
                  store.dispatch({"type":"Home"})
                  store.dispatch({"type":"Status"})
                 
@@ -86,7 +93,7 @@ function StatusView() {
                 <View style={Styles.loadindBar} /> 
             </View>
             <View style={styles.display}> 
-                <Image style={styles.displayImage} source={image} resizeMode={"cover"}/>
+                <Image style={styles.displayImage} source={{uri:image}} resizeMode={"cover"}/>
             </View>
         </View>
     );

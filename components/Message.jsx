@@ -5,7 +5,9 @@ import  {Read,Write}  from './handleDeviceMemory';
 
 const resp1 ={"Chats":[{"Time":"09:00","key":999,"text":"Abuti"}]}
 const resp2={"Contacts":[{"Key":999,"Name":"Nkateko","contacts":1}]}
-
+let ip;
+// ip="192.168.43.16"
+ip="localhost"
 var num=90;
 
 function Message(props) {
@@ -23,10 +25,10 @@ function Message(props) {
             try {
                 var response;
                 if(request=="chat")
-                    response=await fetch("http://localhost:5000/chats");
+                    response=await fetch(`http://${ip}:5000/chats`);
                     
                 else
-                    response=await fetch(`http://localhost:5000/contacts`);
+                    response=await fetch(`http://${ip}:5000/contacts`);
                 const Data=await response.json();
                 if(Data!=Response){
                     if(request=="chat")
@@ -65,7 +67,7 @@ function Message(props) {
             </View>
             <View style={styles.messageInfo}>
 
-                <Image style={styles.messageStatus} source={require("../assets/clock.svg")}/>
+                <Image style={styles.messageStatus} source={require("../assets/thumbtack.png")}/>
                 <Text style={styles.messageSummary}>{(chat!="waiting")?chat.Chats[chat.Chats.length-1].text:"LOL"}</Text>
                 <Text style={styles.unreadCount}>6</Text>
 
