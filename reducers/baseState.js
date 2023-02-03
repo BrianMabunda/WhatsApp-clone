@@ -1,6 +1,6 @@
 import React from 'react';
 
-function baseState(state=1,action) {
+function baseState(state=0,action) {
         switch(action.type){
             case "Chats":
                 return state=0;

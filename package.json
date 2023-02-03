@@ -10,6 +10,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.7",
     "expo": "~44.0.0",
     "expo-camera": "~12.1.2",
     "expo-image-picker": "~12.0.1",
@@ -18,6 +19,8 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-image-picker": "^4.8.4",
+    "react-native-svg": "12.1.1",
+    "react-native-table-component": "^1.2.2",
     "react-native-web": "0.17.1",
     "react-redux": "^8.0.1",
     "redux": "^4.2.0"

@@ -4,6 +4,7 @@ import superState from './superState';
 import sentText from './sentText';
 import contacts from './contacts';
 import contact from './contact';
+import user from './user';
 import statuses from './statuses';
 
 
@@ -13,6 +14,7 @@ const allReducer=combineReducers({
     sent:sentText,
     contacts:contacts,
     contact:contact,
+    user:user,
     status:statuses,
 
 });

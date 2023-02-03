@@ -1,16 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
-import {  Camera, CameraType} from "expo-camera";
+import {  Camera, 
+} from "expo-camera";
 import store from '../reducers/store';
 import * as ImagePicker from 'expo-image-picker';
 let ip;
-ip="192.168.43.16"
-// ip="localhost"
+// ip="192.168.43.16"
+ip="localhost"
+
+
 function StatusCreate(props) {
     const [hasPermission,setHasPermission]=useState(null);
     const [image,setImage]=useState(null);
-    const [camera,setCamera]=useState(null);
+    // const [camera,setCamera]=useState(null);
     const [imguri,setImgUri]=useState(null);
+    // const [type, setType]=useState(Camera.Constants.Type.back);
+
+    const [cameraPermission, setCameraPermission] = useState(null);
+    const [galleryPermission, setGalleryPermission] = useState(null);
+  
+    const [camera, setCamera] = useState(null);
+    const [imageUri, setImageUri] = useState(null);
+    const [type, setType] = useState(Camera.Constants.Type.back);
+  
+
+    const permisionFunction = async () => {
+        // here is how you can get the camera permission
+        const cameraPermission = await Camera.requestPermissionsAsync();
+    
+        setCameraPermission(cameraPermission.status === 'granted');
+    
+        const imagePermission = await ImagePicker.getMediaLibraryPermissionsAsync();
+        console.log(imagePermission.status);
+    
+        setGalleryPermission(imagePermission.status === 'granted');
+    
+        if (
+          imagePermission.status !== 'granted' &&
+          cameraPermission.status !== 'granted'
+        ) {
+          alert('Permission for media access needed.');
+        }
+      };
     
     const pickImage=async()=>{
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -32,7 +63,7 @@ function StatusCreate(props) {
             setImgUri(data.uri);
         }
     }
-     const [type, setType]=useState(CameraType);
+     
     
      const createFormData=(data)=>{
 
@@ -43,15 +74,11 @@ function StatusCreate(props) {
      }
     useEffect(()=>{
 
-        (async ()=>{
-            const {status}=await Camera.getCameraPermissionsAsync();
-            setHasPermission(true)
-            console.log(type)
-        })();
+        permisionFunction();
     },[]);
 
-    if(hasPermission ===null)
-        return <View />
+    //if(hasPermission ===null)
+       // return <View />
     if(hasPermission ===false)
         return (
             //Going back to status without  taking picture
@@ -73,7 +100,7 @@ function StatusCreate(props) {
 
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.picSelect} onPress={()=>{
-                    store.dispatch({"type":"Home"});
+                    store.dispatch({"type":"Modelinfo"});
                     store.dispatch({"type":"Status"})
                 }} >
                     <Image  style={styles.icon} source={require("../assets/cross-circle-free-icon-font.png")} resizeMode={"contain"}/>
@@ -105,7 +132,7 @@ function StatusCreate(props) {
                 <TouchableOpacity style={styles.picSelect} onPress={()=>{
                     if(imguri!==null){
                         createFormData(imguri);
-                        store.dispatch({"type":"Home"});
+                        store.dispatch({"type":"Modelinfo"});
                         store.dispatch({"type":"Status"});
 
                     }
